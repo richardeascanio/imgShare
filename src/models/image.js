@@ -9,6 +9,9 @@ const ImageSchema = new Schema({
     description: {
         type: String
     },
+    imageUrl: {
+        type: String
+    },
     filename: {
         type: String
     },

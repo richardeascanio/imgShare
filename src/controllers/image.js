@@ -35,30 +35,26 @@ ctrl.index = async (req, res) => {
 
 // Create and save an image
 ctrl.create = (req, res) => {
-
     const saveImage = async () => {
-        const imageUrl = randomName();
+        const url = randomName();
         const images = await Image.find({
-            filename: imageUrl
+            filename: url
         });
         if (images.length > 0) {
             saveImage();
         } else {
-            console.log(imageUrl);
-            const imgTempPath = req.file.path;
+            console.log(url);
             const ext = path.extname(req.file.originalname).toLowerCase();
-            const targetPath = path.resolve(`src/public/upload/${imageUrl}${ext}`);
             if (ext === '.png' || ext === '.jpg' || ext === '.jepg' || ext === '.gif') {
-                await fs.rename(imgTempPath, targetPath);
                 const newImg = new Image({
                     title: req.body.title,
-                    filename: imageUrl + ext,
+                    imageUrl: req.file.url,
+                    filename: url + ext,
                     description: req.body.description
                 });
                 const imageSaved = await newImg.save();
-                res.redirect('/images/' + imageUrl);
+                res.redirect('/images/' + url);
             } else {
-                await fs.unlink(imgTempPath);
                 res.status(500).json({
                     error: 'Only images are allowed'
                 });
