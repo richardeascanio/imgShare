@@ -23,6 +23,9 @@ const ImageSchema = new Schema({
         type: Number,
         default: 0
     },
+    user: {
+        type: String
+    },
     timestamp: {
         type: Date,
         default: Date.now

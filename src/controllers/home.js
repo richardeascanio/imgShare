@@ -1,8 +1,12 @@
 const ctrl = {};
-const { Image } = require('../models')
+const { Image } = require('../models');
 const sidebar = require('../helpers/sidebar');
 
-ctrl.index = async (req, res) => {
+ctrl.index = (req, res) => {
+    res.render('index');
+};
+
+ctrl.add = async (req, res) => {
     const images = await Image.find().sort({
         timestamp: -1 // Ascending(1), Descending(-1) 
     });
@@ -11,8 +15,7 @@ ctrl.index = async (req, res) => {
     };
     viewModel.images = images;
     viewModel = await sidebar(viewModel);
-    console.log(viewModel);
-    res.render('index', viewModel);
+    res.render('add', viewModel);
 };
 
 ctrl.dashboard = async (req, res) => {

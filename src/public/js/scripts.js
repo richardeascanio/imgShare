@@ -1,5 +1,5 @@
 $('#post-comment').hide();
-$('#btn-toggle-comment').click(function(e){
+$('#btn-toggle-comment').click(function(e) {
     e.preventDefault();
     $('#post-comment').slideToggle();
 });

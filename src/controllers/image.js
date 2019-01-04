@@ -43,7 +43,6 @@ ctrl.create = (req, res) => {
         if (images.length > 0) {
             saveImage();
         } else {
-            console.log(url);
             const ext = path.extname(req.file.originalname).toLowerCase();
             if (ext === '.png' || ext === '.jpg' || ext === '.jepg' || ext === '.gif') {
                 const newImg = new Image({
