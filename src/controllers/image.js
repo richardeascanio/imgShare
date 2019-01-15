@@ -2,7 +2,6 @@ const path = require('path');
 const { randomName } = require('../helpers/libs');
 const fs = require('fs-extra');
 const { Image, Comment } = require('../models');
-const md5 = require('md5');
 const sidebar = require('../helpers/sidebar');
 const ctrl = {};
 
@@ -10,7 +9,8 @@ const ctrl = {};
 ctrl.index = async (req, res) => {
     let viewModel = {
         image: {},
-        comments: {}
+        comments: {},
+        isAuthor: false
     };
     const image = await Image.findOne({
         filename: { $regex: req.params.image_id }
@@ -24,6 +24,10 @@ ctrl.index = async (req, res) => {
         const comments = await Comment.find({
             image_id: image._id
         });
+        if (image.user == req.user._id){
+            console.log('is author');
+            viewModel.isAuthor= true
+        }
         viewModel.comments = comments;
         viewModel = await sidebar(viewModel);
         res.render('image', viewModel);
@@ -49,7 +53,9 @@ ctrl.create = (req, res) => {
                     title: req.body.title,
                     imageUrl: req.file.url,
                     filename: url + ext,
-                    description: req.body.description
+                    description: req.body.description,
+                    user: req.user._id,
+                    author: req.user.username
                 });
                 const imageSaved = await newImg.save();
                 res.redirect('/images/' + url);
@@ -85,8 +91,11 @@ ctrl.comment = async (req, res) => {
         filename: { $regex: req.params.image_id }
     });
     if (image) {
-        const newComment = new Comment(req.body);
-        newComment.gravatar = md5(newComment.email);
+        const newComment = new Comment({
+            name: req.user.name,
+            email: req.user.email,
+            comment: req.body.comment
+        });
         newComment.image_id = image._id;
         await newComment.save();
         res.redirect(`/images/${image.uniqueId}`);

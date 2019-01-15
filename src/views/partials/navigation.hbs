@@ -4,15 +4,22 @@
             <a href="/dashboard" class="navbar-brand">
                 <img src="/public/img/imgshare-logo.png" alt="imgShare">
             </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="/add" class="nav-link">Add</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ user.name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a href="#" class="dropdown-item">
+                            <a href="/users/profile" class="dropdown-item">
                                 Profile
                             </a>
                             <a href="/users/logout" class="dropdown-item">

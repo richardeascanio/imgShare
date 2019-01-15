@@ -17,9 +17,6 @@ const CommentSchema = new Schema({
     },
     image_id: {
         type: ObjectId // To tell mongoDB that this id belongs to annother collection
-    },
-    gravatar: {
-        type: String
     }
 });
 

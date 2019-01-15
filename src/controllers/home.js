@@ -1,6 +1,7 @@
 const ctrl = {};
 const { Image } = require('../models');
 const sidebar = require('../helpers/sidebar');
+const { isAuthenticated } = require('../helpers/auth');
 
 ctrl.index = (req, res) => {
     res.render('index');

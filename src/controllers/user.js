@@ -1,5 +1,6 @@
 const ctrl = {};
 const { User } = require('../models');
+const md5 = require('md5');
 
 ctrl.signin = (req, res) => {
     res.render('users/signin');
@@ -69,11 +70,16 @@ ctrl.create = async (req, res) => {
         } else {
             const newUser = new User({ name, email, username, password });
             newUser.password = await newUser.encryptPassword(password);
+            newUser.profilePic = md5(newUser.email);
             await newUser.save();
             req.flash('success_msg', 'Sign up successfull');
             res.redirect('/users/signin');
         }
     }
-}
+};
+
+ctrl.profile = (req, res) => {
+    res.render('users/profile');
+};
 
 module.exports = ctrl;

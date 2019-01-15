@@ -2,15 +2,18 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <h2>{{image.title}}</h2>
-            <button class="btn btn-danger" id="btn-delete" data-id="{{image.uniqueId}}">
-                <i class="fa fa-times"></i> Delete
-            </button>
+            {{#if isAuthor}}
+                <button class="btn btn-danger" id="btn-delete" data-id="{{image.uniqueId}}">
+                    <i class="fa fa-times"></i> Delete
+                </button>
+            {{/if}}
         </div>
         <div class="card-body">
             <p>{{image.description}}</p>
             <div class="text-center">
                 <img class="img-fluid" src="{{image.imageUrl}}">
             </div>
+            <p class="text-right mt-2">Author: {{image.author}}</p>
         </div>
         <div class="card-footer d-flex justify-content-between align-items-center">
             <button class="btn btn-success" id="btn-like" data-id="{{image.filename}}">
@@ -40,13 +43,7 @@
             <blockquote id="post-comment">
                 <form action="/images/{{image.uniqueId}}/comment" method="POST">
                     <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                    <input type="text" name="email" class="form-control" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                    <textarea name="comment" rows="2" class="form-control" placeholder="Your comment"></textarea>
+                        <textarea name="comment" rows="2" class="form-control" placeholder="Your comment"></textarea>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-success" id="btn-comment">
@@ -60,7 +57,7 @@
                     <li class="list-group-item">
                         <div class="row">
                             <a href="#" class="col text-center">
-                                <img src="http://gravatar.com/avatar/{{gravatar}}?d=monsterid&s=45">
+                                <img src="http://gravatar.com/avatar/{{user.profilePic}}?d=monsterid&s=45">
                             </a>
                             <blockquote class="col">
                                 <p class="lead">{{comment}}</p>
