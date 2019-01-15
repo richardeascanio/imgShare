@@ -18,8 +18,6 @@ ctrl.logout = (req, res) => {
 ctrl.create = async (req, res) => {
     const { name, email, username, password, confirm_password } = req.body;
     const errors = [];
-    console.log('body', req.body);
-    console.log('file', req.file);
     if (name.length <= 0) {
         errors.push({
             text: 'Please insert your name'

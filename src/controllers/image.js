@@ -40,7 +40,6 @@ ctrl.index = async (req, res) => {
 // Create and save an image
 ctrl.create = (req, res) => {
     const saveImage = async () => {
-        console.log(req.file);
         const url = randomName();
         const images = await Image.find({
             filename: url
