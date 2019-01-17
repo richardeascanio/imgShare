@@ -8,6 +8,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const { isAuthenticated } = require('../helpers/auth');
+require('dotenv').config();
 
 module.exports = app => {
     // Cloudinary configuration
