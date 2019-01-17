@@ -11,10 +11,11 @@ const { isAuthenticated } = require('../helpers/auth');
 
 module.exports = app => {
     // Cloudinary configuration
+    const { CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;
     cloudinary.config({
-        cloud_name: process.env.CLOUD_NAME,
-        api_key: process.env.CLOUDINARY_API_KEY,
-        api_secret: process.env.CLOUDINARY_API_SECRET
+        cloud_name: CLOUD_NAME,
+        api_key: CLOUDINARY_API_KEY,
+        api_secret: CLOUDINARY_API_SECRET
     });
     const storage = cloudinaryStorage({
         cloudinary: cloudinary,
